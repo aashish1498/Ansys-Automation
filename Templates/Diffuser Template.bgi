@@ -1,0 +1,216 @@
+Begin Defaults
+End Defaults
+
+Begin Equations
+End Equations
+
+Begin Model
+	NumMainBlades=3
+	Mode=Angle/Thickness
+	RightHandedCoordSystem
+
+	OutputBladePoints
+	BladeOutputPointClustering=BothEnds
+	NumBladePoints=60
+	NumLeadingEdgePoints=9
+	NumTrailingEdgePoints=9
+
+	CurveDisplayMaximumError=0.006360031446
+
+	DataFromLeToTe
+	BetaAxialDef
+	ThicknessIsDimension
+
+	MeridionalSpanCurveRuledShape=RuledElementOnly
+
+	Component=""
+	Designer=""
+	Company=""
+	Comment=""
+	DeviceType=Unknown
+	ConfigurationType=Axial
+	RotationType=Negative
+	GeometryUnits=MM
+End Model
+
+Begin Meridional
+	MeridionalControlCurveMode=Normal
+	SpanByGeom
+	Begin HubCurve
+		New Segment
+			CurveType=Bezier
+			UpstreamControl=Free
+			Begin Data
+				DATA_1
+			End Data
+			DownstreamControl=Free
+		End Segment
+		New Segment
+			CurveType=Bezier
+			UpstreamControl=Free
+			Begin Data
+				DATA_2
+			End Data
+			DownstreamControl=Free
+		End Segment
+		New Segment
+			CurveType=Bezier
+			UpstreamControl=Free
+			Begin Data
+				DATA_3
+			End Data
+			DownstreamControl=Free
+		End Segment
+	End HubCurve
+	Begin ShroudCurve
+		New Segment
+			CurveType=Bezier
+			UpstreamControl=Free
+			Begin Data
+				DATA_4
+			End Data
+			DownstreamControl=Free
+		End Segment
+		New Segment
+			CurveType=Bezier
+			UpstreamControl=Free
+			Begin Data
+				DATA_5
+			End Data
+			DownstreamControl=Free
+		End Segment
+		New Segment
+			CurveType=Bezier
+			UpstreamControl=Free
+			Begin Data
+				DATA_6
+			End Data
+			DownstreamControl=Free
+		End Segment
+	End ShroudCurve
+	Begin InletCurve
+		New Segment
+			CurveType=Bezier
+			UpstreamControl=Free
+			Begin Data
+				DATA_7
+			End Data
+			DownstreamControl=Free
+		End Segment
+	End InletCurve
+	Begin ExhaustCurve
+		New Segment
+			CurveType=Bezier
+			UpstreamControl=Free
+			Begin Data
+				DATA_8
+			End Data
+			DownstreamControl=Free
+		End Segment
+	End ExhaustCurve
+	Begin LeadingEdgeCurve
+		New Segment
+			CurveType=Bezier
+			UpstreamControl=Free
+			Begin Data
+				DATA_9
+			End Data
+			DownstreamControl=Free
+		End Segment
+	End LeadingEdgeCurve
+	Begin TrailingEdgeCurve
+		New Segment
+			CurveType=Bezier
+			UpstreamControl=Free
+			Begin Data
+				DATA_10
+			End Data
+			DownstreamControl=Free
+		End Segment
+	End TrailingEdgeCurve
+
+	New SpanLayer
+		Name=Layer1
+		OutputLayer=T
+		SpanFraction=0.0000000000
+	End SpanLayer
+
+	New SpanLayer
+		Name=Layer2
+		OutputLayer=T
+		SpanFraction=0.2500000000
+	End SpanLayer
+
+	New SpanLayer
+		Name=Layer3
+		OutputLayer=T
+		SpanFraction=0.5000000000
+	End SpanLayer
+
+	New SpanLayer
+		Name=Layer4
+		OutputLayer=T
+		SpanFraction=0.7500000000
+	End SpanLayer
+
+	New SpanLayer
+		Name=Layer5
+		OutputLayer=T
+		SpanFraction=1.000000000
+	End SpanLayer
+End Meridional
+
+New Blade
+	PitchFraction=0.0000000000
+	LeadingEdgeEndType=Ellipse
+	HubLE_EllipseRatio=2.000000000
+	ShrLE_EllipseRatio=2.000000000
+	TrailingEdgeEndType=CutOff
+	EllipseAtMean=T
+
+	Begin AngleDefinition
+		AngleLocation=MeanLine
+		SpanwiseDistribution=General
+
+		New AngleCurve
+			Layer="Layer3"
+			DefinitionType=BetaCurve
+			HorizDim=Meridional
+			VertDim=Degree
+
+			LE_Theta=0.0000000000
+			New Segment
+				CurveType=Spline
+				UpstreamControl=Free
+				Begin Data
+					DATA_TO_CHANGE
+				End Data
+				DownstreamControl=Free
+			End Segment
+		End AngleCurve
+	End AngleDefinition
+
+	Begin ThicknessDefinition
+		ThicknessType=Normal To Camber Line
+		SpanwiseDistribution=General
+
+		New ThicknessCurve
+			Layer="Layer1"
+			HorizDim=Meridional
+
+			New Segment
+				CurveType=Linear
+				Begin Data
+					DATA_11
+				End Data
+			End Segment
+		End ThicknessCurve
+	End ThicknessDefinition
+End Blade
+
+Begin PlusData
+   Begin Case
+      Component Type = rotor
+      Units = MM
+   End Case
+End PlusData
